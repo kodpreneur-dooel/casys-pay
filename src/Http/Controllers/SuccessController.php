@@ -9,9 +9,7 @@ use Illuminate\Http\Response;
 
 class SuccessController
 {
-    public function __construct(private readonly ChecksumVerifier $verifier)
-    {
-    }
+    public function __construct(private readonly ChecksumVerifier $verifier) {}
 
     public function __invoke(Request $request): Response
     {

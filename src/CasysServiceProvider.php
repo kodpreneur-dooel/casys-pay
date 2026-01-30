@@ -11,7 +11,7 @@ class CasysServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/casys.php', 'casys');
+        $this->mergeConfigFrom(__DIR__.'/../config/casys.php', 'casys');
 
         $this->app->bind(CasysClientInterface::class, CasysClient::class);
         $this->app->bind(PayloadBuilderInterface::class, PayloadBuilder::class);
@@ -20,14 +20,14 @@ class CasysServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/casys.php' => config_path('casys.php'),
+            __DIR__.'/../config/casys.php' => config_path('casys.php'),
         ], 'casys-config');
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/casys'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/casys'),
         ], 'casys-views');
 
-        $this->loadRoutesFrom(__DIR__ . '/../routes/casys.php');
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'casys');
+        $this->loadRoutesFrom(__DIR__.'/../routes/casys.php');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'casys');
     }
 }

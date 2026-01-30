@@ -9,7 +9,5 @@ class CasysPaymentFailed
 {
     use Dispatchable;
 
-    public function __construct(public readonly Request $request)
-    {
-    }
+    public function __construct(public readonly Request $request) {}
 }

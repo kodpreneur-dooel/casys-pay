@@ -7,11 +7,9 @@ use Codepreneur\CasysPay\Contracts\PayloadBuilderInterface;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-class PayloadBuilder implements PayloadBuilderInterface
+readonly class PayloadBuilder implements PayloadBuilderInterface
 {
-    public function __construct(private readonly ChecksumCalculator $checksumCalculator)
-    {
-    }
+    public function __construct(private ChecksumCalculator $checksumCalculator) {}
 
     /**
      * @param array{
@@ -35,25 +33,25 @@ class PayloadBuilder implements PayloadBuilderInterface
      */
     public function build(array $payload): PaymentPayload
     {
-        $merchantId = (string)config('casys.merchant_id');
-        $merchantName = (string)config('casys.merchant_name');
-        $currency = (string)config('casys.currency', 'MKD');
+        $merchantId = (string) config('casys.merchant_id');
+        $merchantName = (string) config('casys.merchant_name');
+        $currency = (string) config('casys.currency', 'MKD');
 
-        $amount = (int)Arr::get($payload, 'amount');
-        $details1 = (string)Arr::get($payload, 'details1', '');
-        $details2 = (string)Arr::get($payload, 'details2', (string)time());
-        $successUrl = (string)Arr::get($payload, 'success_url', url(config('casys.routes.success')));
-        $failUrl = (string)Arr::get($payload, 'fail_url', url(config('casys.routes.fail')));
+        $amount = (int) Arr::get($payload, 'amount');
+        $details1 = (string) Arr::get($payload, 'details1', '');
+        $details2 = (string) Arr::get($payload, 'details2', (string) time());
+        $successUrl = (string) Arr::get($payload, 'success_url', url(config('casys.routes.success')));
+        $failUrl = (string) Arr::get($payload, 'fail_url', url(config('casys.routes.fail')));
 
-        $customer = (array)Arr::get($payload, 'customer', []);
-        $firstName = (string)Arr::get($customer, 'first_name', '');
-        $lastName = (string)Arr::get($customer, 'last_name', '');
-        $address = (string)Arr::get($customer, 'address', '');
-        $city = (string)Arr::get($customer, 'city', '');
-        $zip = (string)Arr::get($customer, 'zip', '');
-        $country = (string)Arr::get($customer, 'country', '');
-        $phone = (string)Arr::get($customer, 'phone', '');
-        $email = (string)Arr::get($customer, 'email', '');
+        $customer = (array) Arr::get($payload, 'customer', []);
+        $firstName = (string) Arr::get($customer, 'first_name', '');
+        $lastName = (string) Arr::get($customer, 'last_name', '');
+        $address = (string) Arr::get($customer, 'address', '');
+        $city = (string) Arr::get($customer, 'city', '');
+        $zip = (string) Arr::get($customer, 'zip', '');
+        $country = (string) Arr::get($customer, 'country', '');
+        $phone = (string) Arr::get($customer, 'phone', '');
+        $email = (string) Arr::get($customer, 'email', '');
 
         $checksum = $this->checksumCalculator->make([
             'amount' => $amount,
@@ -93,7 +91,7 @@ class PayloadBuilder implements PayloadBuilderInterface
             'Country' => $country,
             'Telephone' => $phone,
             'Email' => $email,
-            'isSimple' => Str::lower((string)Arr::get($payload, 'is_simple', 'true')),
+            'isSimple' => Str::lower((string) Arr::get($payload, 'is_simple', 'true')),
         ]);
     }
 }

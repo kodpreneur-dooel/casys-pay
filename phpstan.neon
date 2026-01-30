@@ -1,9 +1,0 @@
-includes:
-    - vendor/nunomaduro/larastan/extension.neon
-
-parameters:
-    level: 7
-    paths:
-        - src
-        - config
-        - routes

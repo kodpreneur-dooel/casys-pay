@@ -8,7 +8,7 @@ class PaymentPayload
     private array $attributes;
 
     /**
-     * @param array<string, mixed> $attributes
+     * @param  array<string, mixed>  $attributes
      */
     public function __construct(array $attributes)
     {

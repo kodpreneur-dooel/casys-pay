@@ -6,11 +6,9 @@ use Codepreneur\CasysPay\Contracts\CasysClientInterface;
 use Codepreneur\CasysPay\Contracts\PayloadBuilderInterface;
 use Codepreneur\CasysPay\Payload\PaymentPayload;
 
-class CasysClient implements CasysClientInterface
+readonly class CasysClient implements CasysClientInterface
 {
-    public function __construct(private readonly PayloadBuilderInterface $payloadBuilder)
-    {
-    }
+    public function __construct(private PayloadBuilderInterface $payloadBuilder) {}
 
     /**
      * @param array{

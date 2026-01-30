@@ -9,37 +9,37 @@ class ChecksumVerifier
 {
     public function valid(Request $request): bool
     {
-        $details = (string)$request->input('Details1');
-        $details2 = (string)$request->input('Details2');
+        $details = (string) $request->input('Details1');
+        $details2 = (string) $request->input('Details2');
         $successUrl = url(config('casys.routes.success'));
         $failUrl = url(config('casys.routes.fail'));
 
-        $checksumHeader = (string)$request->input('ReturnCheckSumHeader');
+        $checksumHeader = (string) $request->input('ReturnCheckSumHeader');
         $checksumData = $checksumHeader
-            . (string)config('casys.merchant_id')
-            . (string)$request->input('AmountToPay')
-            . (string)config('casys.merchant_name')
-            . (string)config('casys.currency')
-            . $details
-            . $details2
-            . $successUrl
-            . $failUrl
-            . (string)$request->input('FirstName')
-            . (string)$request->input('LastName')
-            . (string)$request->input('Address')
-            . (string)$request->input('City')
-            . (string)$request->input('Zip')
-            . (string)$request->input('Country')
-            . (string)$request->input('Telephone')
-            . (string)$request->input('Email');
+            .config('casys.merchant_id')
+            .$request->input('AmountToPay')
+            .config('casys.merchant_name')
+            .config('casys.currency')
+            .$details
+            .$details2
+            .$successUrl
+            .$failUrl
+            .$request->input('FirstName')
+            .$request->input('LastName')
+            .$request->input('Address')
+            .$request->input('City')
+            .$request->input('Zip')
+            .$request->input('Country')
+            .$request->input('Telephone')
+            .$request->input('Email');
 
         $paymentRef = $request->input('cPayPaymentRef');
         if (is_scalar($paymentRef) && $paymentRef !== '') {
-            $checksumData .= (string)$paymentRef;
+            $checksumData .= $paymentRef;
         }
 
-        $checksum = hash_hmac('sha256', $checksumData, (string)config('casys.password'));
+        $checksum = hash_hmac('sha256', $checksumData, (string) config('casys.password'));
 
-        return Str::upper($checksum) === Str::upper((string)$request->input('ReturnCheckSum'));
+        return Str::upper($checksum) === Str::upper((string) $request->input('ReturnCheckSum'));
     }
 }
