@@ -13,6 +13,26 @@ class PayloadBuilder implements PayloadBuilderInterface
     {
     }
 
+    /**
+     * @param array{
+     *     amount:int,
+     *     details1?:string,
+     *     details2?:string,
+     *     success_url?:string,
+     *     fail_url?:string,
+     *     customer?:array{
+     *         first_name?:string,
+     *         last_name?:string,
+     *         address?:string,
+     *         city?:string,
+     *         zip?:string,
+     *         country?:string,
+     *         phone?:string,
+     *         email?:string
+     *     },
+     *     is_simple?:string|bool
+     * } $payload
+     */
     public function build(array $payload): PaymentPayload
     {
         $merchantId = (string)config('casys.merchant_id');

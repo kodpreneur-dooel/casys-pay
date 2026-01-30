@@ -7,7 +7,24 @@ use Illuminate\Support\Str;
 class ChecksumCalculator
 {
     /**
-     * @param array<string, string|int> $payload
+     * @param array{
+     *     amount:int,
+     *     merchant_id:string,
+     *     merchant_name:string,
+     *     currency:string,
+     *     details1:string,
+     *     details2:string,
+     *     success_url:string,
+     *     fail_url:string,
+     *     first_name:string,
+     *     last_name:string,
+     *     address:string,
+     *     city:string,
+     *     zip:string,
+     *     country:string,
+     *     phone:string,
+     *     email:string
+     * } $payload
      * @return array{checksum: string, header: string}
      */
     public function make(array $payload): array
