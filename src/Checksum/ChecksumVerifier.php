@@ -16,26 +16,26 @@ class ChecksumVerifier
 
         $checksumHeader = (string)$request->input('ReturnCheckSumHeader');
         $checksumData = $checksumHeader
-            . config('casys.merchant_id')
-            . $request->input('AmountToPay')
-            . config('casys.merchant_name')
-            . config('casys.currency')
+            . (string)config('casys.merchant_id')
+            . (string)$request->input('AmountToPay')
+            . (string)config('casys.merchant_name')
+            . (string)config('casys.currency')
             . $details
             . $details2
             . $successUrl
             . $failUrl
-            . $request->input('FirstName')
-            . $request->input('LastName')
-            . $request->input('Address')
-            . $request->input('City')
-            . $request->input('Zip')
-            . $request->input('Country')
-            . $request->input('Telephone')
-            . $request->input('Email');
+            . (string)$request->input('FirstName')
+            . (string)$request->input('LastName')
+            . (string)$request->input('Address')
+            . (string)$request->input('City')
+            . (string)$request->input('Zip')
+            . (string)$request->input('Country')
+            . (string)$request->input('Telephone')
+            . (string)$request->input('Email');
 
         $paymentRef = $request->input('cPayPaymentRef');
-        if ($paymentRef) {
-            $checksumData .= $paymentRef;
+        if (is_scalar($paymentRef) && $paymentRef !== '') {
+            $checksumData .= (string)$paymentRef;
         }
 
         $checksum = hash_hmac('sha256', $checksumData, (string)config('casys.password'));

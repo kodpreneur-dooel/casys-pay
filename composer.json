@@ -13,6 +13,10 @@
       "Codepreneur\\CasysPay\\": "src/"
     }
   },
+  "require-dev": {
+    "laravel/pint": "^1.22",
+    "nunomaduro/larastan": "^2.11"
+  },
   "extra": {
     "laravel": {
       "providers": [
