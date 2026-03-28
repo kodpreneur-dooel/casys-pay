@@ -1,30 +1,83 @@
 {
-  "name": "codepreneur/casys-pay",
-  "description": "Reusable Casys VPOS payment integration for Laravel.",
-  "type": "library",
-  "license": "MIT",
-  "require": {
-    "php": "^8.4",
-    "illuminate/support": "^11.0 || ^12.0",
-    "illuminate/http": "^11.0 || ^12.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "Codepreneur\\CasysPay\\": "src/"
-    }
-  },
-  "require-dev": {
-    "laravel/pint": "^1.27"
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Codepreneur\\CasysPay\\CasysServiceProvider"
-      ],
-      "aliases": {
-        "Casys": "Codepreneur\\CasysPay\\Support\\Casys"
-      }
-    }
-  },
-  "minimum-stability": "stable"
+    "name": "codepreneur/casys-pay",
+    "description": "Reusable Casys VPOS payment integration for Laravel.",
+    "keywords": [
+        "casys",
+        "laravel",
+        "payments",
+        "vpos"
+    ],
+    "homepage": "https://github.com/kodpreneur-dooel/casys-pay",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "kodpreneur-dooel",
+            "homepage": "https://github.com/kodpreneur-dooel"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/http": "^11.0 || ^12.0 || ^13.0",
+        "illuminate/support": "^11.0 || ^12.0 || ^13.0",
+        "spatie/laravel-package-tools": "^1.93"
+    },
+    "autoload": {
+        "psr-4": {
+            "Codepreneur\\CasysPay\\": "src/"
+        }
+    },
+    "require-dev": {
+        "laravel/boost": "^2.3",
+        "laravel/pint": "^1.27",
+        "nunomaduro/collision": "^8.6",
+        "orchestra/testbench": "^9.0 || ^10.0 || ^11.0",
+        "phpunit/phpunit": "^11.5"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Codepreneur\\CasysPay\\Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "format": "vendor/bin/pint",
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare",
+            "@php vendor/bin/testbench package:discover --ansi"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve --ansi"
+        ],
+        "lint": [
+            "@php vendor/bin/pint --ansi"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Codepreneur\\CasysPay\\CasysServiceProvider"
+            ],
+            "aliases": {
+                "Casys": "Codepreneur\\CasysPay\\Support\\Casys"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

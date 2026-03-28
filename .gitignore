@@ -1,12 +1,38 @@
-.idea
-.phpunit.cache
-build
+# Composer Related
 composer.lock
-coverage
+/vendor
+
+# Frontend Assets
+/node_modules
+
+# Logs
+npm-debug.log
+yarn-error.log
+
+# Caches
+.phpunit.cache
+.phpunit.result.cache
+/build
+
+# IDE Helper
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+
+# Editors
+/.idea
+/.fleet
+/.vscode
+
+# Misc
 phpunit.xml
-node_modules/
-vendor
-node_modules
-tests/TestSupport/temp/
-public/storage
+phpstan.neon
+testbench.yaml
+/docs
+/coverage
 .DS_Store
+
+# Workbench Runtime
+/workbench/.env
+/workbench/bootstrap/cache
+/workbench/storage

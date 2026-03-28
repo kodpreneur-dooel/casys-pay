@@ -5,29 +5,23 @@ namespace Codepreneur\CasysPay;
 use Codepreneur\CasysPay\Contracts\CasysClientInterface;
 use Codepreneur\CasysPay\Contracts\PayloadBuilderInterface;
 use Codepreneur\CasysPay\Payload\PayloadBuilder;
-use Illuminate\Support\ServiceProvider;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class CasysServiceProvider extends ServiceProvider
+class CasysServiceProvider extends PackageServiceProvider
 {
-    public function register(): void
+    public function configurePackage(Package $package): void
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/casys.php', 'casys');
-
-        $this->app->bind(CasysClientInterface::class, CasysClient::class);
-        $this->app->bind(PayloadBuilderInterface::class, PayloadBuilder::class);
+        $package
+            ->name('casys')
+            ->hasConfigFile()
+            ->hasViews()
+            ->hasRoute('casys');
     }
 
-    public function boot(): void
+    public function packageRegistered(): void
     {
-        $this->publishes([
-            __DIR__.'/../config/casys.php' => config_path('casys.php'),
-        ], 'casys-config');
-
-        $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/vendor/casys'),
-        ], 'casys-views');
-
-        $this->loadRoutesFrom(__DIR__.'/../routes/casys.php');
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'casys');
+        $this->app->bind(CasysClientInterface::class, CasysClient::class);
+        $this->app->bind(PayloadBuilderInterface::class, PayloadBuilder::class);
     }
 }
